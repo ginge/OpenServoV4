@@ -1,9 +1,26 @@
 /*
- *  OpenServo v4 ARM port test
- * 
- * Barry Carter 2012
-*/
+    Copyright (c) 2012 Barry Carter <barry.carter@gmail.com>
 
+    Permission is hereby granted, free of charge, to any person
+    obtaining a copy of this software and associated documentation
+    files (the "Software"), to deal in the Software without
+    restriction, including without limitation the rights to use, copy,
+    modify, merge, publish, distribute, sublicense, and/or sell copies
+    of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+    DEALINGS IN THE SOFTWARE.
+*/
 
 /* Include libmaple and the FreeRTOS module. */
 #include "OpenServoCommon.h"
@@ -47,7 +64,7 @@ void setup( void )
     xTaskCreate(vPositionADCTask, (const signed char*)"Position", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
     xTaskCreate(vPIDTask, (const signed char*)"PID", configMINIMAL_STACK_SIZE, NULL, 2, NULL );
     
-    setupOpenServo();
+    setup_OpenServo();
 
     /* Start the scheduler. */
     vTaskStartScheduler();
@@ -157,7 +174,7 @@ static void vPIDTask(void* pvParameters)
         	 pxMessage = & xMessage;
 
             //SerialUSB.print("Calculating PID: ");
-            int32_t pwm = pidPositionToPwm(positionValue);
+            int32_t pwm = pid_position_to_pwm(positionValue);
             //SerialUSB.println(pwm);
 
             //sprintf(pxMessage->data, "Got Sample: %d\n", tval);// %d : pwm %d", (int)positionValue, (int)pwm);

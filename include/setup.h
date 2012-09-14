@@ -1,6 +1,6 @@
 /*
     Copyright (c) 2006 Michael P. Thompson <mpthompson@gmail.com>
-    Copyright (c) 2012 barry Carter <barry.carter@gmail.com>
+    Copyright (c) 2012 Barry Carter <barry.carter@gmail.com>
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation
@@ -31,8 +31,8 @@
 
 /* Configure the default pin configuration on startup of the device
  */
-void setupPinDefaults(void);
-void setupOpenServo(void);
+void setup_pin_defaults(void);
+void setup_OpenServo(void);
 
 
 

@@ -1,6 +1,5 @@
 /*
-    Copyright (c) 2006 Michael P. Thompson <mpthompson@gmail.com>
-    Copyright (c) 2012 barry Carter <barry.carter@gmail.com>
+    Copyright (c) 2012 Barry Carter <barry.carter@gmail.com>
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation
@@ -32,26 +31,22 @@
 #include "pwm_os.h"
 #include "i2c_module.h"
 
-
-extern int tval;
-/* Configure the default pin configuration on startup of the device
+/*
+ * Configure the default pin configuration on startup of the device
  */
-void setupPinDefaults(void)
+void setup_pin_defaults(void)
 {
-      // Setup the LED to steady on
+    // Setup the LED to steady on
     pinMode(BOARD_LED_PIN, OUTPUT);
     digitalWrite(BOARD_LED_PIN, HIGH);
 
     // Setup the button as input
     pinMode(BOARD_BUTTON_PIN, INPUT);
     digitalWrite(BOARD_BUTTON_PIN, HIGH);
-
-
-
 }
 
 
-void setupModules(void)
+void setup_modules(void)
 {
     registers_init();
     banks_init();
@@ -60,14 +55,14 @@ void setupModules(void)
 }
 
 
-void setupDefaultOpenServo(void)
+void setup_default_OpenServo(void)
 {
     pid_registers_defaults();
 }
 
-void setupOpenServo()
+void setup_OpenServo()
 {
-    setupPinDefaults();
-    setupModules();
-    setupDefaultOpenServo();
+    setup_pin_defaults();
+    setup_modules();
+    setup_default_OpenServo();
 }

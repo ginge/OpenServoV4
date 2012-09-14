@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2009 Barry Carter <barry.carter@gmail.com>
+    Copyright (c) 2012 Barry Carter <barry.carter@gmail.com>
     Copyright (c) 2006 Michael P. Thompson <mpthompson@gmail.com>
 
     Permission is hereby granted, free of charge, to any person
@@ -135,7 +135,7 @@ static void pwm_dir_b(uint16_t pwm_duty)
 
         // Disable PWM_A (PB1/OC1A) and PWM_B (PB2/OC1B) output.
         // NOTE: Actually PWM_B should already be disabled...
-       pinMode(6, OUTPUT); //PA8
+        pinMode(6, OUTPUT); //PA8
         pinMode(7, OUTPUT); //PA9
     
         // Yes. Make sure PB1 and PB2 are zero.
@@ -208,14 +208,6 @@ void pwm_init(void)
     // Update the pwm values.
     registers_write_byte(REG_PWM_DIRA, 0);
     registers_write_byte(REG_PWM_DIRB, 0);
-
-#if STEP_ENABLE_BRIDGE_PIN
-    // Set enable pin as output
-    STEP_ENABLE_DDR |= (1<<STEP_ENABLE_PIN);
-
-    step_enable_bridge();
-#endif
-
 }
 
 
@@ -230,7 +222,7 @@ int16_t pwm_sanitise(int16_t position, int16_t pwm)
     min_position = banks_read_word(CONFIG_BANK, REG_MIN_SEEK_HI, REG_MIN_SEEK_LO);
     max_position = banks_read_word(CONFIG_BANK, REG_MAX_SEEK_HI, REG_MAX_SEEK_LO);
 
-    // Make sure these values are sane 10-bit values.
+    // Make sure these values are sane 12-bit values.
     if (min_position > MAX_POSITION) min_position = MAX_POSITION;
     if (max_position > MAX_POSITION) max_position = MAX_POSITION;
 
@@ -245,8 +237,8 @@ int16_t pwm_sanitise(int16_t position, int16_t pwm)
 
 void pwm_update(uint16_t position, int32_t pwm)
 // Update the PWM signal being sent to the motor.  The PWM value should be
-// a signed integer in the range of -255 to -1 for clockwise movement,
-// 1 to 255 for counter-clockwise movement or zero to stop all movement.
+// a signed integer in the range of -65535 to -1 for clockwise movement,
+// 1 to 65535 for counter-clockwise movement or zero to stop all movement.
 // This function provides a sanity check against the servo position and
 // will prevent the servo from being driven past a minimum and maximum
 // position.
@@ -300,7 +292,6 @@ void pwm_stop(void)
 {
     // Disable interrupts.
     //nvic_globalirq_disable();
-
 
     pinMode(6, OUTPUT); //PA8
     pinMode(7, OUTPUT); //PA9

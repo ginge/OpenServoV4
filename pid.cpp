@@ -1,5 +1,6 @@
 /*
     Copyright (c) 2006 Michael P. Thompson <mpthompson@gmail.com>
+    Copyright (c) 2012 Barry Carter <barry.carter@gmail.com>
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation
@@ -101,7 +102,7 @@ void pid_registers_defaults(void)
 }
 
 
-int32_t pidPositionToPwm(int16_t current_position)
+int32_t pid_position_to_pwm(int16_t current_position)
 // This is a modified pid algorithm by which the seek position and seek
 // velocity are assumed to be a moving target.  The algorithm attempts to
 // output a pwm value that will achieve a predicted position and velocity.
